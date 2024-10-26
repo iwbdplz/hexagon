@@ -14,7 +14,7 @@
 	  	jdbcUrl=jdbc:oracle:thin:@//127.0.0.1:1521
 	  	dbUser=system
 	  	dbPass=oracle
-	  	poolName=JWP
+	  	poolName=jspwebproject
 	  	maxTotal=30
 	  	minIdle=3
 	  	validationQuery=select 1
