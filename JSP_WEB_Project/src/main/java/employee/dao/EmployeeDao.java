@@ -16,23 +16,35 @@ import jdbc.JdbcUtil;
 import userinfo.model.UserInfo;
 
 //　データベースに接近するメソードを管理するクラス。
+// 데이터베이스에 접근하는 메서드를 관리하는 클래스
 public class EmployeeDao {
 	//　ユーザー登録。
+	// 유저 등록
 	//　ユーザーID、所属、職位、入社日、使用銀行、口座番号が必要。
+	// 유저ID, 소속, 직위, 입사일, 사용은행, 계좌번호가 필요하다.
 	private static final String INSERT_EMPLOYEE = "insert into employee values(?,?,?,?,?,?,?)";
 	//　ユーザーページングの為にユーザーの数を数える。
+	// 유저 페이징을 위해 수를 센다.
 	private static final String SELECT_COUNT = "select count(*) from employee";
 	// ページングに従ってユーザーとそのユーザーの引退日を取得する。
+	// 페이징에 따라서 유저와 그 유저의 퇴직일을 취득한다.
 	// ユーザーを何番から何番まで持って来るか数字が必要。
+	// 유저를 몇번부터 몇번까지 가져올 지 숫자가 필요하다.
 	private static final String SELECT_LIST = "select b.*, c.*, d.retirement_date from (select rownum as rnum, a.* from (select * from employee order by user_id desc) a where rownum <= ?) b, user_info c, retirement d where rnum >= ? and b.user_id = c.user_id and b.emp_id = d.emp_id(+) order by b.user_id desc";
 	// ページングとキーワードに従ってキーワードを名前に含めているユーザーとそのユーザーの引退日を取得する。
+	// 페이징과 키워드에 따라서 키워드를 이름에 포함하고 있는 유저와 그 유저의 퇴직일을 취득한다.
 	//　ユーザーを何番から何番まで持って来るか数字と名前検索に使うキーワードが必要。
+	// 유저를 몇번부터 몇번까지 가져올 지 숫자가 필요하다.
 	private static final String SELECT_LIST_BY_KEYWORD = "select u.*, e.*, r.retirement_date from (select rownum as rnum, a.* from (select * from user_info where user_name LIKE ? order by user_id desc) a where rownum <= ?) u, employee e, retirement r where rnum >= ? and u.user_id = e.user_id and e.emp_id = r.emp_id(+) order by u.user_id desc";
 	// ユーザー一人照会。
+	// 유저 개인 조회
 	// 照会するユーザーのIDが必要。
+	// 조회할 유저의 ID가 필요하다.
 	private static final String SELECT_EMPLOYEE_INFO = "select e.*, u.*, s.total_salary, r.retirement_date from employee e, user_info u, salary_management s, retirement r where e.user_id=? and e.user_id=u.user_id and e.emp_id=s.emp_id(+) and e.emp_id=r.emp_id(+)";
 	//　ユーザー情報修正。
+	// 유저 정보 수정
 	// 所属、職位、入社日、　情報を修正するユーザーのIDと
+	// 소속, 직위, 입사일, 정보를 수정할 유저의 ID가 필요하다.
 	private static final String UPDATE_EMPLOYEE = "update employee e set e.dept = ?, e.position=?, e.hire_date=?, financial_company=?, account_number=? where e.user_id=?";
 	
 	public void createEmployee(Connection conn, Employee employee) throws SQLException {

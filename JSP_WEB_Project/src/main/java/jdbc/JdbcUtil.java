@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 //　jdbc関連ユーティリティクラス
+// jdbc관련 유틸리티 클래스
 public class JdbcUtil {
 
 	// 使ったリザルトセットの繋がりを切る。
+	// 사용한 ResultSet의 연결을 끊음
 	public static void close(ResultSet rs) {
 		if (rs != null) {
 			try {
@@ -20,6 +22,7 @@ public class JdbcUtil {
 	}
 	
 	//　使ったステートメントの繋がりを切る。
+	// 사용한 Statement의 연결을 끊음
 	public static void close(Statement stmt) {
 		if (stmt != null) {
 			try {
@@ -31,6 +34,7 @@ public class JdbcUtil {
 	}
 	
 	//　使ったコネクションの繋がりを切る。
+	// 사용한 Connection의 연결을 끊음
 	public static void close(Connection conn) {
 		if (conn != null) {
 			try {
@@ -42,6 +46,7 @@ public class JdbcUtil {
 	}
 	
 	//　何か問題がある時にクエリをロールバックする
+	// 무엇인가 문제가 있을 때 쿼리를 롤백함
 	public static void rollback(Connection conn) {
 		if (conn != null) {
 			try {

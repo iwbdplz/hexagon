@@ -3,6 +3,7 @@ package employee.service;
 import java.util.Map;
 
 // 社員情報修正リクエストDTO
+// 사원 정보 수정 요청 DTO
 public class UpdateUserRequest {
 	
 	// user info
@@ -55,6 +56,7 @@ public class UpdateUserRequest {
 	}
 
 	//　リクエストパラメーターに全ての情報があるか検査する。
+	// 요청 파라미터에 모든 정보가 있는지 검사한다.
 	public void validate(Map<String, Boolean> errors) {
 		// userinfo
 		checkEmpty(errors, userId, "userId");

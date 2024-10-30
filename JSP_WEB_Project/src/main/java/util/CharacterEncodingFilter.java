@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 //　リクエストのエンコーディング設定がパラメータで設定したエンコーディングパラメータと違う場合パラメータで設定した値に変更するフィルター。
+// 리퀘스트의 인코딩 설정이 파라미터로 설정된 인코딩 메서드와 다른 경우 파라미터로 설정된 값을 변환하는 필터
 public class CharacterEncodingFilter implements Filter {
 
 	private String encoding;

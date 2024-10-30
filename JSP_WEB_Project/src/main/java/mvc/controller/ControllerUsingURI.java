@@ -16,12 +16,15 @@ import mvc.command.CommandHandler;
 import mvc.command.NullHandler;
 
 // URIを通じて要請を区分して正しいサービロジックを実行するクラス。
+// URI를 통해 요청을 구분하여 알맞는 서비스 로직을 실행하는 클래스
 public class ControllerUsingURI extends HttpServlet{
 
 	private Map<String, CommandHandler> commandHandlerMap = new HashMap<>();
 	
-	//　プログラムを実行した途端、プロパティファイルにあるパラメーターを呼び出して各々い該当する値をcommandHandlerMapに貯蔵する。
+	//　プログラムを実行した途端、プロパティファイルにあるパラメーターを呼び出してそれぞれ該当する値をcommandHandlerMapに保存する。
+	// 프로그램을 실행한 순간, 프로퍼티 파일에 있는 파라미터를 불러내 각각 해당하는 값을 commandHandlerMap에 저장한다.
 	// commandHandlerMapは＜URI, クラス＞の形式だ。
+	// commandHandlerMap은 <URI, 클래스>의 형식이다.
 	public void init() throws ServletException {
 		String configFile = getInitParameter("configFile");
 		Properties prop = new Properties();
@@ -54,8 +57,11 @@ public class ControllerUsingURI extends HttpServlet{
 	}
 	
 	// commandHandlerMapからリクエストのURIを通じて実行するクラスを呼び出す。
+	// commandHandlerMap 으로부터 리퀘스트의 URI를 통해 실행할 클래스를 불러낸다.
 	// 実行するクラスを呼び出す事を失敗した場合、NullHandlerを呼び出して４０４エラーを返却する。
+	// 실행할 클래스를 불러내는 것을 실패한 경우, NullHandler를 불러내 404 에러를 반환한다.
 	// 実行するクラスを呼び出す事を成功した場合、利用者に提供するVIEWページを返却する。
+	// 실행할 클래스를 불러내는 것을 성공한 경우, 사용자에게 제공할 VIEW 페이지를 반환한다.
 	private void process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		
 		String command = req.getRequestURI();

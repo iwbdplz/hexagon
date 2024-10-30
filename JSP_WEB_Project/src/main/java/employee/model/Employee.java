@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class Employee {
 	
-	private Long employeeId;  // 社員番号
-	private Long userId;  // userinfo_fk
-	private String dept;  //　所属
-	private String position;  //　職位
-	private Date hiredAt;  //　入社日
-	private String financialCo; // 使用銀行
-	private String accountNum;  // 口座番号
+	private Long employeeId;  // 社員番号 사원 번호
+	private Long userId;  // userinfo_fk 유저 정보 fk
+	private String dept;  //　所属 소속
+	private String position;  //　職位 직위
+	private Date hiredAt;  //　入社日 입사일
+	private String financialCo; // 使用銀行 사용은행
+	private String accountNum;  // 口座番号 계좌번호
 	
 	public Long getEmployeeId() {
 		return employeeId;

@@ -8,6 +8,7 @@ import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 
 //社員一人の情報照会のサービスロジックを提供するクラス。
+// 사원 개인의 정보를 조회하는 서비스 로직을 제공하는 클래스
 public class EmployeeInfoReadService {
 
 	private final EmployeeDao employeeDao = new EmployeeDao();

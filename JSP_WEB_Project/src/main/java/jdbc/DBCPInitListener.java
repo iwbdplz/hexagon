@@ -19,14 +19,18 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 public class DBCPInitListener implements ServletContextListener{
 
 	// プログラムを終了する時呼び出されるメソッド。
+	// 프로그램을 종료할 때 호출되는 메서드
 	// ServletContextListenerの設定を削除する。
+	// ServletContextListener의 설정을 삭제한다.
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		ServletContextListener.super.contextDestroyed(sce);
 	}
 
 	// プログラムを実行する時呼び出されるメソッド。
+	// 프로그램을 실행할 때 호출되는 메서드
 	// プロパティファイルからパラメータを呼び出してjdbcコネクションをセットする。
+	// 프로퍼티 파일로부터 파라미터를 불러내 jdbc 연결을 세팅한다.
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		String poolConfig = sce.getServletContext().getInitParameter("poolConfig");
@@ -41,6 +45,7 @@ public class DBCPInitListener implements ServletContextListener{
 	}
 	
 	//　必要なjdbcdriverを呼び出すメソード。
+	// 필요한 jdbcdriver를 불러내는 메서드
 	private void loadJDBCDriver(Properties prop) {
 		String driverClass = prop.getProperty("jdbcdriver");
 		try {
@@ -51,6 +56,7 @@ public class DBCPInitListener implements ServletContextListener{
 	}
 	
 	// jdbc繋がりをセットしてテストし、コネクションプールを生成する。
+	// Jdbc연결을 세팅하고 테스트 하고, 커넥션풀을 생성한다.
 	private void initConnectionPool(Properties prop) {
 		try {
 			String jdbcUrl = prop.getProperty("jdbcUrl");

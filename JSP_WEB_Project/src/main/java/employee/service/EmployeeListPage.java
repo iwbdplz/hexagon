@@ -4,12 +4,12 @@ import java.util.List;
 
 public class EmployeeListPage {
 
-	private int total;  // データの総数
-	private int currentPage;  //　現在表示するページ
-	private List<EmployeeWithUserInfoAndRetiredDate> content;  // 表示するデータ
-	private int totalPages; // 総ページ
-	private int startPage;  // 表示するぺーじの初ページ
-	private int endPage;  // 表示するぺーじの最後ページ
+	private int total;  // データの総数 데이터의 총 갯수
+	private int currentPage;  //　現在表示するページ 현재 표시중인 페이지
+	private List<EmployeeWithUserInfoAndRetiredDate> content;  // 表示するデータ 표시할 데이터
+	private int totalPages; // 総ページ 총 페이지
+	private int startPage;  // 表示するページの初ページ 표시할 페이지
+	private int endPage;  // 表示するページの最後ページ 표시할 페이지의 마지막 페이지
 	
 	public EmployeeListPage(int total, int currentPage, int size, List<EmployeeWithUserInfoAndRetiredDate> content) {
 		super();
@@ -18,6 +18,7 @@ public class EmployeeListPage {
 		this.content = content;
 		
 		//　情報の総数に従ってページの数を計算してページングを提供する。
+		// 정보의 총 개수에 따라 페이지의 수를 계산하여 페이징을 제공한다.
 		if (total == 0) {
 			totalPages = 0;
 			startPage = 0;

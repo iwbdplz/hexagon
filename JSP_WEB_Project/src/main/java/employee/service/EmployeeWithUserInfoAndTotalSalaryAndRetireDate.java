@@ -3,6 +3,7 @@ package employee.service;
 import java.util.Date;
 
 // 社員照会ページで表示する社員一人の情報DTO
+// 사원 조회 페이지에서 표시할 사원 1명의 정보 DTO
 public class EmployeeWithUserInfoAndTotalSalaryAndRetireDate {
 
 	// user_info
