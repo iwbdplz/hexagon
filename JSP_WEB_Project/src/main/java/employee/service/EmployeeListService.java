@@ -38,7 +38,7 @@ public class EmployeeListService {
 	
 	// 検索語がある場合
 	// 검색어가 있는 경우
-	public EmployeeListPage getEmployeeListPageWithKeyword(int pageNum, String keyword){
+	public EmployeeListPage getEmployeeListPageWithKeyword(int pageNum, String keyword, String searchBy){
 		int firstRow = 0;
 		int endRow = 0;
 		List<EmployeeWithUserInfoAndRetiredDate> content = null;
@@ -48,7 +48,7 @@ public class EmployeeListService {
 			if (total > 0){
 				firstRow = (pageNum-1) * size + 1;
 				endRow = firstRow + size - 1;
-				content = employeeDao.selectByKeyword(conn,firstRow,endRow, keyword);
+				content = employeeDao.selectByKeyword(conn,firstRow,endRow, keyword, searchBy);
 			}
 			return new EmployeeListPage(total, pageNum, size, content);
 		} catch(SQLException e) {

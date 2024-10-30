@@ -20,6 +20,13 @@ function selectAll(selectAll)  {
 </script>
 <form action="list.do" method="get">
  <span>
+  <select id="searchBy" name="searchBy">
+	  	<option value="${searchBy}">${searchByValue}</option>
+        <option value="user_name">氏名</option>
+        <option value="emp_id">社員番号</option>
+        <option value="dept">所属</option>
+        <option value="position">職位</option>
+    </select>
   <input type="text" name="keyword" id="keyword" value="${keyword}" placeholder="社員検索"/>
   <button class="button" type="submit">検索</button>
  </span>
@@ -60,15 +67,15 @@ function selectAll(selectAll)  {
 		<tr>
 			<td colspan="10">
 				<c:if test="${employeeList.startPage > 5}">
-				<a href="list.do?pageNo=${employeeList.startPage - 5}&keyword=${keyword}">[前のページ]</a>
+				<a href="list.do?pageNo=${employeeList.startPage - 5}&keyword=${keyword}&searchBy=${searchBy}">[前のページ]</a>
 				</c:if>
 				<c:forEach var="pNo" 
 						   begin="${employeeList.startPage}" 
 						   end="${employeeList.endPage}">
-				<a href="list.do?pageNo=${pNo}&keyword=${keyword}">[${pNo}]</a>
+				<a href="list.do?pageNo=${pNo}&keyword=${keyword}&searchBy=${searchBy}">[${pNo}]</a>
 				</c:forEach>
 				<c:if test="${employeeList.endPage < employeeList.totalPages}">
-				<a href="list.do?pageNo=${employeeList.startPage + 5}&keyword=${keyword}">[次のページ]</a>
+				<a href="list.do?pageNo=${employeeList.startPage + 5}&keyword=${keyword}&searchBy=${searchBy}">[次のページ]</a>
 				</c:if>
 				<input type="submit" value="社員削除">
 				<c:if test="${errors.noSelectedError}">削除対象を選択してください。</c:if>

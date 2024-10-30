@@ -29,9 +29,29 @@ public class EmployeeListHandler implements CommandHandler{
 		// 検索語有無によって呼び出すメソードが違う。
 		// 검색어 유무에 따라 호출하는 메서드가 다르다.
 		String keyword = req.getParameter("keyword");
-		if (keyword != null && !keyword.isEmpty()){
-			employeeListPage = employeeListService.getEmployeeListPageWithKeyword(pageNo, keyword);
+		String searchBy = req.getParameter("searchBy");
+		if (keyword != null && !keyword.isEmpty() && searchBy != null && !searchBy.isEmpty()){
+			employeeListPage = employeeListService.getEmployeeListPageWithKeyword(pageNo, keyword, searchBy);
 			req.setAttribute("keyword", keyword);
+			req.setAttribute("searchBy", searchBy);
+			String searchByValue = null;
+			switch (searchBy) {
+				case "user_name":
+					searchByValue = "氏名";
+					break;
+				case "position":
+					searchByValue = "職位";
+					break;
+				case "emp_id":
+					searchByValue = "社員番号";
+					break;
+				case "dept":
+					searchByValue = "所属";
+					break;
+				default:
+					break;
+			}
+			req.setAttribute("searchByValue", searchByValue);
 		}
 		else{
 			employeeListPage = employeeListService.getEmployeeListPage(pageNo);

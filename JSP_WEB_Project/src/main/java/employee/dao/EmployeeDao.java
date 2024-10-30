@@ -35,7 +35,22 @@ public class EmployeeDao {
 	// 페이징과 키워드에 따라서 키워드를 이름에 포함하고 있는 유저와 그 유저의 퇴직일을 취득한다.
 	//　ユーザーを何番から何番まで持って来るか数字と名前検索に使うキーワードが必要。
 	// 유저를 몇번부터 몇번까지 가져올 지 숫자가 필요하다.
-	private static final String SELECT_LIST_BY_KEYWORD = "select u.*, e.*, r.retirement_date from (select rownum as rnum, a.* from (select * from user_info where user_name LIKE ? order by user_id desc) a where rownum <= ?) u, employee e, retirement r where rnum >= ? and u.user_id = e.user_id and e.emp_id = r.emp_id(+) order by u.user_id desc";
+	// PreparedStatementのsetStringメソッドは自動的に値に「’」を加えて使う。
+	//　そこで検索する項目の名前は「’」が入ったら検索できないのでクエリを二つに割て二つの間に検索する項目を入れて使う。
+	// PreparedStatement의setString메서드는 자동적으로 값에 '를 더해서 사용한다.
+	// 거기서 검색할 항목의 이름은 '가 들어가면 검색이 불가능하기 때문에 쿼리를 2개로 나눠서 사이에 검색할 항목을 넣어서 사용한다.
+	private static final String SELECT_USER_LIST_BY_KEYWORD_FRONT = "select u.*, e.*, r.retirement_date from (select rownum as rnum, a.* from (select * from user_info where ";
+	private static final String SELECT_USER_LIST_BY_KEYWORD_BACK = " LIKE ? order by user_id desc) a where rownum <= ?) u, employee e, retirement r where rnum >= ? and u.user_id = e.user_id and e.emp_id = r.emp_id(+) order by u.user_id desc";
+	// ページングとキーワードに従ってキーワードを名前に含めているユーザーとそのユーザーの引退日を取得する。
+	// 페이징과 키워드에 따라서 키워드를 이름에 포함하고 있는 유저와 그 유저의 퇴직일을 취득한다.
+	//　ユーザーを何番から何番まで持って来るか数字と名前検索に使うキーワードが必要。
+	// 유저를 몇번부터 몇번까지 가져올 지 숫자가 필요하다.
+	// PreparedStatementのsetStringメソッドは自動的に値に「’」を加えて使う。
+	//　そこで検索する項目の名前は「’」が入ったら検索できないのでクエリを二つに割て二つの間に検索する項目を入れて使う。
+	// PreparedStatement의setString메서드는 자동적으로 값에 '를 더해서 사용한다.
+	// 거기서 검색할 항목의 이름은 '가 들어가면 검색이 불가능하기 때문에 쿼리를 2개로 나눠서 사이에 검색할 항목을 넣어서 사용한다.
+	private static final String SELECT_EMPLOYEE_LIST_BY_KEYWORD_FRONT = "select u.*, e.*, r.retirement_date from (select rownum as rnum, a.* from (select * from employee where ";
+	private static final String SELECT_EMPLOYEE_LIST_BY_KEYWORD_BACK = " LIKE ? order by user_id desc) a where rownum <= ?) e, user_info u, retirement r where rnum >= ? and u.user_id = e.user_id and e.emp_id = r.emp_id(+) order by u.user_id desc";
 	// ユーザー一人照会。
 	// 유저 개인 조회
 	// 照会するユーザーのIDが必要。
@@ -96,11 +111,16 @@ public class EmployeeDao {
 	}
 	
 	public List<EmployeeWithUserInfoAndRetiredDate> selectByKeyword(Connection conn, int firstRow, int endRow,
-			String keyword) throws SQLException {
+			String keyword, String searchBy) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = conn.prepareStatement(SELECT_LIST_BY_KEYWORD);
+			if (searchBy.equals("user_name")){
+				pstmt = conn.prepareStatement(SELECT_USER_LIST_BY_KEYWORD_FRONT + searchBy + SELECT_USER_LIST_BY_KEYWORD_BACK);
+			}
+			else {
+				pstmt = conn.prepareStatement(SELECT_EMPLOYEE_LIST_BY_KEYWORD_FRONT + searchBy + SELECT_EMPLOYEE_LIST_BY_KEYWORD_BACK);
+			}
 			pstmt.setString(1, "%" + keyword + "%");
 			pstmt.setInt(2, endRow);
 			pstmt.setInt(3, firstRow);
