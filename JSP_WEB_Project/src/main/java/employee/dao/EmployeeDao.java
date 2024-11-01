@@ -26,6 +26,9 @@ public class EmployeeDao {
 	//　ユーザーページングの為にユーザーの数を数える。
 	// 유저 페이징을 위해 수를 센다.
 	private static final String SELECT_COUNT = "select count(*) from employee";
+	//　退職者の数を表示する為に数を数える。
+	// 퇴직자 수 표시를 위해 수를 센다.
+	private static final String SELECT_RETIRED_COUNT = "select count(*) from retirement";
 	// ページングに従ってユーザーとそのユーザーの引退日を取得する。
 	// 페이징에 따라서 유저와 그 유저의 퇴직일을 취득한다.
 	// ユーザーを何番から何番まで持って来るか数字が必要。
@@ -166,6 +169,22 @@ public class EmployeeDao {
 		}
 	}
 	
+	public int selectRetiredCount(Connection conn) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(SELECT_RETIRED_COUNT);
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+			return 0;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
+		}
+	}
+	
 	private EmployeeWithUserInfoAndTotalSalaryAndRetireDate convertEmployeeWithUserInfoAndTotalSalaryAndRetireDate(ResultSet rs) throws SQLException{
 		return new EmployeeWithUserInfoAndTotalSalaryAndRetireDate(
 					rs.getLong("user_id"),
@@ -201,6 +220,4 @@ public class EmployeeDao {
 				rs.getDate("retirement_date") == null ? null : rs.getDate("retirement_date")
 				);
 	}
-
-
 }

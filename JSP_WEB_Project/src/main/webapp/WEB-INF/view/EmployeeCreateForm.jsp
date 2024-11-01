@@ -10,7 +10,7 @@
 <body>
 
 <form action="create.do" method="post">
-	<table border="2">
+	<table border="2" align="center">
 	<tr>
 		<td>
 			氏名:<input type="text" name="username">
@@ -56,9 +56,9 @@
 	</tr>
 	</table>
 	<br>
-	<div>
-		<input type="submit" value="登録">
-		<button type="button" onClick="location.href='/JSP_WEB_Project/user/list.do'">取消</button>
+	<div align="center">
+		<input style="width: 80px; height: 30px; font-size: 18px;" type="submit" value="登録">
+		<button style="width: 80px; height: 30px; font-size: 18px;" type="button" onClick="location.href='/JSP_WEB_Project/user/list.do'">取消</button>
 	</div>
 </form>
 

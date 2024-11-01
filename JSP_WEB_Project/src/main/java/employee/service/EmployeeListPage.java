@@ -10,12 +10,16 @@ public class EmployeeListPage {
 	private int totalPages; // 総ページ 총 페이지
 	private int startPage;  // 表示するページの初ページ 표시할 페이지
 	private int endPage;  // 表示するページの最後ページ 표시할 페이지의 마지막 페이지
+	private int retiredCount; // 退職者の数 퇴직자 수
+	private int inCompanyCount; // 在職者の数 재직자 수
 	
-	public EmployeeListPage(int total, int currentPage, int size, List<EmployeeWithUserInfoAndRetiredDate> content) {
+	public EmployeeListPage(int total, int currentPage, int size, List<EmployeeWithUserInfoAndRetiredDate> content, int retiredCount) {
 		super();
 		this.total = total;
 		this.currentPage = currentPage;
 		this.content = content;
+		this.retiredCount = retiredCount;
+		this.inCompanyCount = total - retiredCount;
 		
 		//　情報の総数に従ってページの数を計算してページングを提供する。
 		// 정보의 총 개수에 따라 페이지의 수를 계산하여 페이징을 제공한다.
@@ -61,6 +65,22 @@ public class EmployeeListPage {
 		return endPage;
 	}
 	
+	public int getRetiredCount() {
+		return retiredCount;
+	}
+
+	public int getInCompanyCount() {
+		return inCompanyCount;
+	}
+
+	public void setRetiredCount(int retiredCount) {
+		this.retiredCount = retiredCount;
+	}
+
+	public void setInCompanyCount(int inCompanyCount) {
+		this.inCompanyCount = inCompanyCount;
+	}
+
 	public boolean hasNoData() {
 		return total == 0;
 	}

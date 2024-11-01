@@ -25,12 +25,13 @@ public class EmployeeListService {
 		List<EmployeeWithUserInfoAndRetiredDate> content = null;
 		try(Connection conn = ConnectionProvider.getConnection()){
 			int total = employeeDao.selectCount(conn);
+			int retiredCount = employeeDao.selectRetiredCount(conn);
 			if (total > 0){
 				firstRow = (pageNum-1) * size + 1;
 				endRow = firstRow + size - 1;
 				content = employeeDao.selectList(conn,firstRow,endRow);
 			}
-			return new EmployeeListPage(total, pageNum, size, content);
+			return new EmployeeListPage(total, pageNum, size, content, retiredCount);
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -45,12 +46,13 @@ public class EmployeeListService {
 		
 		try(Connection conn = ConnectionProvider.getConnection()){
 			int total = employeeDao.selectCount(conn);
+			int retiredCount = employeeDao.selectRetiredCount(conn);
 			if (total > 0){
 				firstRow = (pageNum-1) * size + 1;
 				endRow = firstRow + size - 1;
 				content = employeeDao.selectByKeyword(conn,firstRow,endRow, keyword, searchBy);
 			}
-			return new EmployeeListPage(total, pageNum, size, content);
+			return new EmployeeListPage(total, pageNum, size, content, retiredCount);
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}

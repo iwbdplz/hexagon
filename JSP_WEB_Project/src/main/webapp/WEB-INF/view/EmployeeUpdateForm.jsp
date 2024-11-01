@@ -11,7 +11,7 @@
 
 <form action="update.do" method="post">
 	<input type="hidden" type="text" name="userId" value="${data.userId}">
-	<table border="2">
+	<table border="2" align="center">
 	
 		<tr>
 			<td>
@@ -67,9 +67,9 @@
 		</tr>
 	</table>
 	<br>
-	<div>
-		<input type="submit" value="修正"> 
-		<button type="button" onClick="location.href='/JSP_WEB_Project/user/list.do'">取消</button>
+	<div align="center">
+		<input style="width: 80px; height: 30px; font-size: 18px;" type="submit" value="修正"> 
+		<button style="width: 80px; height: 30px; font-size: 18px;" type="button" onClick="location.href='/JSP_WEB_Project/user/list.do'">取消</button>
 	</div>
 	
 	
