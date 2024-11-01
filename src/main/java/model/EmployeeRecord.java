@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class EmployeeRecord {
 	private int empId; // 사원 ID 社員ID
-	private int userId;
+	private int userId; //사용자 ID ユーザーID
     private String department; // 부서 部門
     private String position; // 직위 役職
     private Date hireDate; // 입사일 入社日
