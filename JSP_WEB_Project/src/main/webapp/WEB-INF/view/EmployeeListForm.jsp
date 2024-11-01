@@ -44,6 +44,7 @@ function selectAll(selectAll)  {
 			<td>携帯電話</td>
 			<td>Eメール</td>
 			<td>退社日</td>
+			<td>状態</td>
 		</tr>
 	<c:if test="${employeeList.hasNoData()}">
 		<tr>
@@ -61,6 +62,7 @@ function selectAll(selectAll)  {
 				<td>${data.userInfo.phoneNum}</td>
 				<td>${data.userInfo.email}</td>
 				<td>${data.retirementDate}</td>
+				<td>${data.status}</td>
 			</tr>
 	</c:forEach>
 	<c:if test="${employeeList.hasData()}">

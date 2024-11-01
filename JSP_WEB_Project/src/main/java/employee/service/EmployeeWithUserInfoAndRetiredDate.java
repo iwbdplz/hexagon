@@ -11,11 +11,13 @@ public class EmployeeWithUserInfoAndRetiredDate{
 	private final Employee employee;
 	private final UserInfo userInfo;
 	private final Date retirementDate;
+	private final String status;
 	
 	public EmployeeWithUserInfoAndRetiredDate(Employee employee, UserInfo userInfo, Date retirementDate) {
 		this.employee = employee;
 		this.userInfo = userInfo;
 		this.retirementDate = retirementDate;
+		this.status = retirementDate == null ? "在職" : "退職";
 	}
 
 	public Employee getEmployee() {
@@ -28,6 +30,10 @@ public class EmployeeWithUserInfoAndRetiredDate{
 
 	public Date getRetirementDate() {
 		return retirementDate;
+	}
+	
+	public String getStatus() {
+		return status;
 	}
 	
 }
